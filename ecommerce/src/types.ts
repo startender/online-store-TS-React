@@ -11,4 +11,8 @@ export interface ICartItem extends IProduct {
 
 }
 
+export interface Div {
+  children: JSX.Element | JSX.Element[];
+}
+
 export type TypeSetState<T> = Dispatch<SetStateAction<T>>
