@@ -75,7 +75,10 @@ const Header: FC = () => {
             </div>
           </div>
         ))}
-        <div className="text-lg">
+        
+      
+
+        <div className="text-lg border-solid border-t-2 border-red-300 pt-1 mt-5">
           Total: <b>${total}</b>
         </div>
       </div>
