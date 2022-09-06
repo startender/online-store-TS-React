@@ -1,9 +1,39 @@
-export const cartReducer = (state = { value: 0 }, action) {
+import { ICartItem } from '../../types';
+import { actionTypes, TypeActionCart } from './types';
+
+const initialState:ICartItem[] = []
+
+export const cartReducer = (state = initialState, action: TypeActionCart) => {
   switch (action.type) {
-    case 'counter/incremented':
-      return { value: state.value + 1 }
-    case 'counter/decremented':
-      return { value: state.value - 1 }
+    case actionTypes.CART_ADD_ITEM:
+      {
+        const cart = [...state] // получаем состояние в переменную тк state нельзя мутировать
+        // в редакс тулкит уже можно мутировать стейт
+        const {count, product} = action.payload
+
+        const foundProduct = cart.find(item => item._id === product._id)
+
+        if(foundProduct) {
+          foundProduct.count = count
+        } else {
+          cart.push({
+            ...product,
+            count
+          })
+        }
+        return cart
+      }
+
+    case actionTypes.CART_REMOVE_ITEM:
+      {
+        const cart = [...state]
+
+        cart.forEach((item, index) => {
+          if(item._id === action.payload)cart.slice(index, 1)
+        })
+        return cart
+      }
+      
     default:
       return state
   }
