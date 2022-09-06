@@ -8,6 +8,7 @@ import logoImage from "../assets/images/image.svg";
 
 const cartItems: ICartItem[] = [
   {
+    _id: "asdasd",
     imagePath: "https://img.mvideo.ru/Pdb/small_pic/200/30043369b.jpg",
     name: "Монитор HP OMEN X",
     count: 1,
@@ -18,14 +19,18 @@ const cartItems: ICartItem[] = [
 const Header: FC = () => {
   const [isShowCart, setIsShowCart] = useState(false);
 
-  const total = cartItems.reduce((acc, item) => acc + item.count, 0);
+  const total = cartItems.reduce((acc, item) => acc + item.price, 0);
+
+  const removeHandler = (id: string) => {
+    console.log(id);
+  };
 
   return (
     <div
       className="flex items-center justify-between relative w-full py-1 px-3"
       style={{
         background:
-          "linear-gradient(90deg, rgba(255,0,104,1) 0%, rgba(255,226,0,1) 100%)",
+          "linear-gradient(90deg, rgba(155,2,104,1) 0%, rgba(155,526,299,1) 100%)",
         boxShadow: "1px 3px 30px 0px rgba(50, 50, 50, 0.75)",
       }}
     >
@@ -43,26 +48,35 @@ const Header: FC = () => {
           hidden: !isShowCart,
         })}
         style={{
-          top: 'calc(61px + 1.5rem)'
+          top: 90,
         }}
       >
         {cartItems.map((item) => (
-          <div className="flex items-center" key={`cart item ${item.name}`}>
+          <div
+            className="flex items-center mb-4"
+            key={`cart item ${item.name}`}
+          >
             <img
               src={item.imagePath}
               alt={item.name}
-              width="155"
+              width="65"
               height="55"
               className="mr-3"
             />
             <div>
               <div>{item.name}</div>
-              <div>{`${item.count} x ${item.price}`}</div>
+              <div>{`${item.count} x ${item.price}$`}</div>
+              <button
+                className="text-red-600 bg-transparent border-0"
+                onClick={() => removeHandler(item._id)}
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
         <div className="text-lg">
-          Total: <b>{total}</b>
+          Total: <b>${total}</b>
         </div>
       </div>
     </div>
