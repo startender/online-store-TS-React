@@ -1,20 +1,23 @@
 import React, { FC } from "react";
 import cn from "classnames";
 import { useState } from "react";
-import { ICartItem } from "../types";
+import { useTypedSelector } from '../hooks/useTypedSelectors';
 
 import cartIcon from "../assets/images/bx-cart.svg";
 import logoImage from "../assets/images/image.svg";
-import { useTypedSelector } from '../hooks/useTypedSelectors';
+import { useDispatch } from 'react-redux';
+import { removeFromCart } from '../store/cart/actions';
 
 const Header: FC = () => {
   const [isShowCart, setIsShowCart] = useState(false);
 
   const cart = useTypedSelector(state => state.cart);
-  const total = cart.reduce((acc, item) => acc + item.price, 0);
+  const total = cart.reduce((acc, item) => acc + (item.price * item.count), 0);
+
+  const dispatch = useDispatch()
 
   const removeHandler = (id: string) => {
-    console.log(id);
+    dispatch(removeFromCart(id))
   };
 
 
@@ -60,7 +63,7 @@ const Header: FC = () => {
             />
             <div>
               <div>{item.name}</div>
-              <div>{`${item.count} x ${item.price}$`}</div>
+              <div>{`${item.count} x ${item.price.toLocaleString()}$`}</div>
               <button
                 className="text-red-600 bg-transparent border-0"
                 onClick={() => removeHandler(item._id)}
@@ -74,7 +77,7 @@ const Header: FC = () => {
       
 
         <div className="text-lg border-solid border-t-2 border-red-300 pt-1 mt-5">
-          Total: <b>${total}</b>
+          Total: <b>${ total.toLocaleString() }</b>
         </div>
       </div>
     </div>

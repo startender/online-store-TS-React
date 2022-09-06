@@ -8,5 +8,5 @@ export const addToCart = (product: IProduct, count: number) => ({
 
 export const removeFromCart = (productId: string) => ({
   type: actionTypes.CART_REMOVE_ITEM,
-  payload: {productId},
+  payload: productId,
 })
