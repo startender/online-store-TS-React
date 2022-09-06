@@ -1,21 +1,25 @@
 import React from 'react'
-import { useState, FC } from 'react';
+import { FC }  from 'react';
+import { TypeSetState } from '../types';
 
-const Quantity: FC<{count: number}> = () => {
-  const [count, setCount] = useState(0);
+interface IQuantity {
+  count: number
+  setCount: TypeSetState<number>
+}
 
+const Quantity: FC<IQuantity> = ({ count, setCount }) => {
 
   return (
     <div className='flex items-center my-2'>
 
-      <button onClick={() => setCount((prev) =>{ 
-        if (prev === 0) {
-          return prev
+      <button onClick={() => setCount((count: number) =>{ 
+        if (count === 0) {
+          return count
         }
-        return prev-1})}>-</button>
+        return count-1})}>-</button>
         <input type='number' className='mx-2' onChange={e => setCount(+e.target.value)} value={count} />
 
-      <button onClick={() => count < 30 && setCount(count => count+1) } >+</button>
+      <button onClick={() => count < 30 && setCount((count: number) => count+1) } >+</button>
 
     </div>
   )

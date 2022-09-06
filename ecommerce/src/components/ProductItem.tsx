@@ -1,15 +1,21 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { IProduct } from '../types';
 import Quantity from './Quantity';
+import { addToCart } from '../store/cart/actions';
+
 
 interface IProductItem {
   product: IProduct
 }
 
 const ProductItem: FC<IProductItem> = ({product}) => {
+  const [count, setCount] = useState(0);
+
+  const dispatch = useDispatch()
 
   const   addHandler = () => {
-    console.log(product._id);
+    dispatch(addToCart(product, count))
     
   }
 
@@ -26,7 +32,7 @@ const ProductItem: FC<IProductItem> = ({product}) => {
       <img src={product.imagePath} alt={product.name} className='w-full rounded-lg' />
       <div className="text-lg font-bold my-2">{product.name}</div>
       <div className="text-sm text-gray-700">{product.price}$</div>
-      <Quantity count={0} />
+      <Quantity count={count} setCount={setCount} />
       <button
         onClick={addHandler}
         className="bg-teal-300 font-semibold text-white rounded-sm px-3 py-1"

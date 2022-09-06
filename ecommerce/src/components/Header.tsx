@@ -5,25 +5,18 @@ import { ICartItem } from "../types";
 
 import cartIcon from "../assets/images/bx-cart.svg";
 import logoImage from "../assets/images/image.svg";
-
-const cartItems: ICartItem[] = [
-  {
-    _id: "asdasd",
-    imagePath: "https://img.mvideo.ru/Pdb/small_pic/200/30043369b.jpg",
-    name: "Монитор HP OMEN X",
-    count: 1,
-    price: 3890,
-  },
-];
+import { useTypedSelector } from '../hooks/useTypedSelectors';
 
 const Header: FC = () => {
   const [isShowCart, setIsShowCart] = useState(false);
 
-  const total = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const cart = useTypedSelector(state => state.cart);
+  const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   const removeHandler = (id: string) => {
     console.log(id);
   };
+
 
   return (
     <div
@@ -37,11 +30,13 @@ const Header: FC = () => {
       <img src={logoImage} alt="" width="50" />
 
       <button
-        className="bg-transparent border-none"
+        className="bg-transparent border-none relative"
         onClick={() => setIsShowCart(!isShowCart)}
-      >
+        >
         <img src={cartIcon} alt="" width="50" />
+        <div className="text-red-600 absolute bottom-4 right-3 font-bold p-2 rounded-full bg-white w-5 h-5 flex items-center text-center border-stone-900">{cart.length}</div>
       </button>
+        
 
       <div
         className={cn("bg-white absolute right-0 shadow-md p-5 rounded-md", {
@@ -51,7 +46,7 @@ const Header: FC = () => {
           top: 90,
         }}
       >
-        {cartItems.map((item) => (
+        {cart.map((item) => (
           <div
             className="flex items-center mb-4"
             key={`cart item ${item.name}`}
