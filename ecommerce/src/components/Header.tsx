@@ -44,7 +44,7 @@ const Header: FC = () => {
       </button>
 
       <div
-        className={cn("absolute right-0 shadow-md p-5 rounded-md", {
+        className={cn("bg-white absolute right-0 shadow-md p-5 rounded-md", {
           hidden: !isShowCart,
         })}
         style={{
