@@ -8,13 +8,14 @@ const Quantity: FC<{count: number}> = () => {
   return (
     <div className='flex items-center my-2'>
 
-      <button onClick={() => setCount(prev => prev+1) } >+</button>
-        <input type='number' className='mx-2' onChange={e => setCount(+e.target.value)} value={count} />
       <button onClick={() => setCount((prev) =>{ 
         if (prev === 0) {
           return prev
         }
         return prev-1})}>-</button>
+        <input type='number' className='mx-2' onChange={e => setCount(+e.target.value)} value={count} />
+
+      <button onClick={() => count < 30 && setCount(count => count+1) } >+</button>
 
     </div>
   )

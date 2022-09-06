@@ -23,7 +23,7 @@ const ProductItem: FC<IProductItem> = ({product}) => {
         boxShadow: "20px 20px 60px #bebebe, -20px -20px 60px #ffffff",
       }}
     >
-      <img src={product.imagePath} alt={product.name} width="200" />
+      <img src={product.imagePath} alt={product.name} className='w-full' />
       <div className="text-lg font-bold my-2">{product.name}</div>
       <div className="text-sm text-gray-700">{product.price}$</div>
       <Quantity count={0} />
