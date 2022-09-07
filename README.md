@@ -1,5 +1,6 @@
 # online-store-TS-React
-# Simple app with Main menu, Products and drop down Cart(add/delete/reload-saving), made for practice with Tailwind CSS, Redux, Local Storage etc.
+
+Simple ecommerce with Main menu, Products and drop down Cart(add/delete/reload-saving), made for practice with Tailwind CSS, Redux, Local Storage etc.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
